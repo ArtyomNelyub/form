@@ -1,4 +1,5 @@
 import React from 'react';
+import InputField from './input-field';
 
 function Form() {
   return (
@@ -6,41 +7,26 @@ function Form() {
       <h1 className='form__header'>Создание анкеты</h1>
 
       <div className='form__block block'>
-        <div className='form__field block__half'>
-          <label htmlFor='name'>Имя:</label>
-          <input type='text' name='name' id='name' placeholder='Имя' />
-        </div>
-        <div className='form__field block__half'>
-          <label htmlFor='surname'>Фамилия:</label>
-          <input
-            type='text'
-            name='surname'
-            id='surname'
-            placeholder='Фамилия'
-          />
-        </div>
+        <InputField name='name' placeholder='Имя' type='text' id='name' />
+        <InputField
+          name='surname'
+          placeholder='Фамилия'
+          type='text'
+          id='surname'
+        />
       </div>
 
       <div className='form__block block'>
-        <div className='form__field block__half'>
-          <label htmlFor='phone'>Телефон:</label>
-          <input type='tel' name='phone' id='phone' placeholder='Телефон' />
-        </div>
-        <div className='form__field block__half'>
-          <label htmlFor='birthday'>Дата рождения:</label>
-          <input
-            type='date'
-            name='birthday'
-            id='birthday'
-            placeholder='Дата рождения'
-          />
-        </div>
+        <InputField name='phone' placeholder='Телефон' type='tel' id='phone' />
+        <InputField
+          name='birthday'
+          placeholder='Дата рождения'
+          type='date'
+          id='birthday'
+        />
       </div>
 
-      <div className='form__field'>
-        <label htmlFor='website'>Сайт:</label>
-        <input type='url' name='website' id='website' placeholder='Сайт' />
-      </div>
+      <InputField name='website' placeholder='Сайт' type='url' id='website' />
 
       <div className='form__field'>
         <label htmlFor='about'>О себе:</label>

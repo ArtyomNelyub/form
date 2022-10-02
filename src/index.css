@@ -79,8 +79,8 @@ body {
   font-weight: 500;
 }
 
-.form__field input,
-.form__field textarea {
+input,
+textarea {
   border: 3px solid rgb(131 222 60);
   border-radius: 5px;
   padding: 10px;
@@ -88,6 +88,38 @@ body {
   color: #11720c;
   background-color: #bafcba;
   font-size: 18px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #11720c70;
+}
+
+.error {
+  border: 3px solid red;
+  color: red;
+}
+
+.error::placeholder {
+  color: rgba(255, 0, 0, 0.5);
+}
+
+.warning {
+  position: relative;
+  color: red;
+}
+
+.warning::before {
+  display: block;
+  content: 'Поле не заполнено!';
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: red;
+  border: 2px solid red;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .form__field textarea {
@@ -129,4 +161,3 @@ body {
 .button_clear:hover {
   box-shadow: 0 0 8px 1px #63ba5f;
 }
-
