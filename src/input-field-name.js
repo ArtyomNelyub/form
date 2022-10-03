@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ErrorBlock from './error-block';
 
 const regExLetters = /[a-zA-Zа-яА-ЯёЁ]/;
 
@@ -9,8 +10,9 @@ export default function InputFieldName(props) {
 
   return (
     <div className='form__field block__half'>
-      <label htmlFor={name} className={isError && !value ? 'warning' : ''}>
+      <label htmlFor={name}>
         {`${placeholder}:`}
+        {isError && <ErrorBlock message={'Поле незаполнено!'} />}
       </label>
       <input
         required

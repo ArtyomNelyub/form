@@ -1,6 +1,7 @@
 import React from 'react';
 import InputField from './input-field';
 import InputFieldName from './input-field-name';
+import InputFieldPhone from './input-field-phone';
 import TextareaField from './textarea-field';
 
 function Form() {
@@ -14,7 +15,7 @@ function Form() {
       </div>
 
       <div className='form__block block'>
-        <InputField name='phone' placeholder='Телефон' type='tel' />
+        <InputFieldPhone name='phone' placeholder='Телефон' type='tel' />
         <InputField name='birthday' placeholder='Дата рождения' type='date' />
       </div>
 
