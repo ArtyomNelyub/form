@@ -126,6 +126,12 @@ textarea::placeholder {
   resize: none;
 }
 
+.form__count-symbols {
+  align-self: flex-end;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
 .form__footer {
   border-top: 2px solid #11720c;
   display: flex;

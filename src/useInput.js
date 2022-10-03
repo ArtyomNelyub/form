@@ -5,6 +5,8 @@ export default function useInput(initial, required) {
   const [isError, setIsError] = useState(false);
 
   return {
+    setIsError,
+    setValue,
     value,
     isError,
     onChange: (e) => setValue(e.target.value),

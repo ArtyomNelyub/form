@@ -1,25 +1,37 @@
 import useInput from './useInput';
 
-export default function InputField(props) {
-  const { name, id, placeholder, type } = props;
-  const { value, onChange, onBlur, isError } = useInput('', true);
+const COUNT_SYMBOLS = 600;
+
+export default function TextareaField(props) {
+  const { name, placeholder } = props;
+  const { value, onChange, onBlur, isError, setValue } = useInput('', true);
 
   return (
-    <div className='form__field block__half'>
-      <label htmlFor={name} className={isError && !value && 'warning'}>
-        {`${placeholder}:`}
-      </label>
-      <input
+    <div className='form__field'>
+      <label
+        htmlFor='stack'
+        className={isError && !value ? 'warning' : ''}
+      >{`${placeholder}:`}</label>
+      <textarea
+        maxLength={COUNT_SYMBOLS}
         required
-        type={type}
         name={name}
-        id={id}
+        id={name}
+        rows='7'
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
-        className={isError && !value && 'error'}
-      />
+        onBlur={(e) => {
+          setValue(value.trim());
+          onBlur(e);
+        }}
+        className={isError && !value ? 'error' : ''}
+      ></textarea>
+
+      <div className='form__count-symbols'>
+        Доступно {`${COUNT_SYMBOLS - value.length}`} символов из{' '}
+        {`${COUNT_SYMBOLS}`}
+      </div>
     </div>
   );
 }
