@@ -42,7 +42,7 @@ export default function InputFieldName(props) {
     <div className='form__field block__half'>
       <label htmlFor={name}>
         {`${placeholder}:`}
-        {isEmpty && <ErrorBlock message={'Поле незаполнено!'} />}
+        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
       </label>
 
       <input

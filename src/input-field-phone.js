@@ -4,7 +4,7 @@ const regExNumb = /(\d)|(-)/;
 const NUMBER_COUNT = 12;
 
 export default function InputFieldPhone(props) {
-  const { name, placeholder, type, values, setValues } = props;
+  const { name, placeholder, type, values, setValues, label } = props;
   const { value, isCorrect, isError } = values;
 
   function numberHandler(str) {
@@ -57,9 +57,9 @@ export default function InputFieldPhone(props) {
   return (
     <div className='form__field block__half'>
       <label htmlFor={name}>
-        {`${placeholder}:`}
+        {`${label}:`}
         {!isCorrect && <ErrorBlock message={'Некорректный номер'} />}
-        {isError && <ErrorBlock message={'Поле незаполнено!'} />}
+        {isError && <ErrorBlock message={'Поле не заполнено!'} />}
       </label>
       <input
         className={isError || !isCorrect ? 'error' : ''}

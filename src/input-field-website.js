@@ -1,28 +1,44 @@
+import { useLayoutEffect } from 'react';
 import ErrorBlock from './error-block';
 
-export default function InputFieldBirthday(props) {
+export default function InputFieldWebsite(props) {
   const { name, placeholder, type, values, setValues } = props;
-  const { value, isEmpty } = values;
+  const { value, isEmpty, isCorrect } = values;
+  const regExWebsite =
+    /^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/;
+
+  useLayoutEffect(() => {
+    setValues((prev) => ({
+      ...prev,
+      value: 'https://',
+    }));
+  }, [setValues]);
 
   function onChangeHandler(e) {
-    setValues((prev) => ({
-      ...prev,
-      value: e.target.value,
-    }));
+    if (/\s$/.test(e.target.value)) {
+      return;
+    }
+    if (/^https:\/\//.test(e.target.value)) {
+      setValues((prev) => ({
+        ...prev,
+        value: e.target.value,
+      }));
+    }
   }
 
-  function onBlurHandler(e) {
-    setValues((prev) => ({
-      ...prev,
+  function onBlurHandler() {
+    setValues({
       value: value,
       isEmpty: !value,
-    }));
+      isCorrect: regExWebsite.test(value),
+    });
   }
 
   function onFocusHandler() {
     setValues((prev) => ({
       ...prev,
       isEmpty: false,
+      isCorrect: true,
     }));
   }
 
@@ -31,9 +47,10 @@ export default function InputFieldBirthday(props) {
       <label htmlFor={name}>
         {`${placeholder}:`}
         {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
+        {!isCorrect && <ErrorBlock message={'Некорректный адрес'} />}
       </label>
       <input
-        className={isEmpty ? 'error' : ''}
+        className={isEmpty || !isCorrect ? 'error' : ''}
         required
         type={type}
         name={name}
