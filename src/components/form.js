@@ -5,7 +5,8 @@ import InputFieldPhone from './input-field-phone';
 import InputFieldWebsite from './input-field-website';
 import TextareaField from './textarea-field';
 
-function Form() {
+function Form(props) {
+  const { summaryOpenHandler, summaryValuesHandler } = props;
   const fieldData = { value: '', isCorrect: true, isEmpty: false };
   const [name, setName] = useState({ ...fieldData });
   const [surName, setSurName] = useState({ ...fieldData });
@@ -25,9 +26,44 @@ function Form() {
     setStack,
     setLastProject,
   ];
+  const allValues = [
+    name,
+    surName,
+    phone,
+    birthday,
+    website,
+    about,
+    stack,
+    lastProject,
+  ];
 
   function clearHandler() {
     allSetters.forEach((setter) => setter({ ...fieldData }));
+  }
+
+  function submitHandler() {
+    let values = allValues.map((value) => value.value);
+    let isEmptyErrors = allValues.map((value) => value.isEmpty);
+    let isCorrectErrors = allValues.map((value) => value.isCorrect);
+
+    if (
+      values.includes('') ||
+      isEmptyErrors.includes(true) ||
+      isCorrectErrors.includes(false)
+    ) {
+      summaryOpenHandler(false);
+      for (let i = 0; i < values.length; i++) {
+        if (values[i] === '') {
+          allSetters[i]((prev) => ({
+            ...prev,
+            isEmpty: true,
+          }));
+        }
+      }
+    } else {
+      summaryValuesHandler(values);
+      summaryOpenHandler(true);
+    }
   }
 
   return (
@@ -104,13 +140,7 @@ function Form() {
         >
           Очистить
         </button>
-        <button
-          type='button'
-          className='button'
-          onClick={() => {
-            console.log(name);
-          }}
-        >
+        <button type='button' className='button' onClick={submitHandler}>
           Отправить
         </button>
       </div>

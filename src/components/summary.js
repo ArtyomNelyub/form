@@ -1,6 +1,10 @@
-export default function Summary(props) {
-  const { name, surName, phone, birthday, website, about, stack, lastProject } =
-    props;
+export default function Summary({ values, summaryOpenHandler }) {
+  const [name, surName, phone, birthday, website, about, stack, lastProject] =
+    values;
+
+  function onClickHandler() {
+    summaryOpenHandler(false);
+  }
 
   return (
     <div className='summary'>
@@ -30,7 +34,9 @@ export default function Summary(props) {
         <div className='summary__value'>{`${lastProject}`}</div>
       </div>
       <div className='summary__footer'>
-        <button className='button'>Закрыть</button>
+        <button className='button' onClick={onClickHandler}>
+          Закрыть
+        </button>
       </div>
     </div>
   );

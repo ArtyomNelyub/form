@@ -1,5 +1,3 @@
-import ErrorBlock from './error-block';
-
 const COUNT_SYMBOLS = 600;
 
 export default function TextareaField(props) {
@@ -50,9 +48,9 @@ export default function TextareaField(props) {
     <div className='form__field'>
       <label htmlFor='stack'>
         {`${placeholder}:`}
-        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
+        {isEmpty && <div className='incorrect'>Поле не заполнено!</div>}
         {value.length > COUNT_SYMBOLS && (
-          <ErrorBlock message={'Превышен лимит символов!'} />
+          <div className='incorrect'>Превышен лимит символов!</div>
         )}
       </label>
       <textarea

@@ -1,5 +1,3 @@
-import ErrorBlock from './error-block';
-
 export default function InputFieldBirthday(props) {
   const { name, placeholder, type, values, setValues } = props;
   const { value, isEmpty } = values;
@@ -30,7 +28,7 @@ export default function InputFieldBirthday(props) {
     <div className='form__field block__half'>
       <label htmlFor={name}>
         {`${placeholder}:`}
-        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
+        {isEmpty && <div className='incorrect'>Поле не заполнено!</div>}
       </label>
       <input
         className={isEmpty ? 'error' : ''}

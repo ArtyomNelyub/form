@@ -1,11 +1,9 @@
-import ErrorBlock from './error-block';
-
 const regExNumb = /(\d)|(-)/;
 const NUMBER_COUNT = 12;
 
 export default function InputFieldPhone(props) {
   const { name, placeholder, type, values, setValues, label } = props;
-  const { value, isCorrect, isError } = values;
+  const { value, isCorrect, isEmpty } = values;
 
   function numberHandler(str) {
     str = str.split('-').join('');
@@ -41,7 +39,7 @@ export default function InputFieldPhone(props) {
   function onBlurHandler(e) {
     setValues((prev) => ({
       ...prev,
-      isError: !value,
+      isEmpty: !value,
       isCorrect: !(value.length < NUMBER_COUNT && value !== ''),
     }));
   }
@@ -50,7 +48,7 @@ export default function InputFieldPhone(props) {
     setValues((prev) => ({
       ...prev,
       isCorrect: true,
-      isError: false,
+      isEmpty: false,
     }));
   }
 
@@ -58,11 +56,11 @@ export default function InputFieldPhone(props) {
     <div className='form__field block__half'>
       <label htmlFor={name}>
         {`${label}:`}
-        {!isCorrect && <ErrorBlock message={'Некорректный номер'} />}
-        {isError && <ErrorBlock message={'Поле не заполнено!'} />}
+        {!isCorrect && <div className='incorrect'>Некорректный номер!</div>}
+        {isEmpty && <div className='incorrect'>Поле не заполнено!</div>}
       </label>
       <input
-        className={isError || !isCorrect ? 'error' : ''}
+        className={isEmpty || !isCorrect ? 'error' : ''}
         required
         type={type}
         name={name}

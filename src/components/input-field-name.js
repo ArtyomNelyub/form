@@ -1,5 +1,3 @@
-import ErrorBlock from './error-block';
-
 const regExLetters = /[a-zA-Zа-яА-ЯёЁ]/;
 
 export default function InputFieldName(props) {
@@ -42,7 +40,7 @@ export default function InputFieldName(props) {
     <div className='form__field block__half'>
       <label htmlFor={name}>
         {`${placeholder}:`}
-        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
+        {isEmpty && <div className='incorrect'>Поле не заполнено!</div>}
       </label>
 
       <input

@@ -1,18 +1,8 @@
-import { useEffect } from 'react';
-import ErrorBlock from './error-block';
-
 export default function InputFieldWebsite(props) {
   const { name, placeholder, type, values, setValues } = props;
   const { value, isEmpty, isCorrect } = values;
   const regExWebsite =
     /^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/;
-
-  useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      value: 'https://',
-    }));
-  }, [setValues]);
 
   function onChangeHandler(e) {
     if (/\s$/.test(e.target.value)) {
@@ -52,8 +42,8 @@ export default function InputFieldWebsite(props) {
     <div className='form__field block__half'>
       <label htmlFor={name}>
         {`${placeholder}:`}
-        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
-        {!isCorrect && <ErrorBlock message={'Некорректный адрес'} />}
+        {isEmpty && <div className='incorrect'>Поле не заполнено!</div>}
+        {!isCorrect && <div className='incorrect'>Некорректный адрес!</div>}
       </label>
       <input
         className={isEmpty || !isCorrect ? 'error' : ''}
