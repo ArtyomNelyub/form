@@ -104,24 +104,6 @@ textarea::placeholder {
   color: rgba(255, 0, 0, 0.5);
 }
 
-.warning {
-  position: relative;
-  color: red;
-}
-
-.warning::before {
-  display: block;
-  content: 'Поле не заполнено!';
-  position: absolute;
-  right: 0;
-  top: 0;
-  color: red;
-  border: 2px solid red;
-  background-color: white;
-  border-radius: 5px;
-  padding: 5px;
-}
-
 .form__field textarea {
   resize: none;
 }

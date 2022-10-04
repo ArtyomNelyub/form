@@ -1,37 +1,74 @@
-import useInput from './useInput';
+import ErrorBlock from './error-block';
 
 const COUNT_SYMBOLS = 600;
 
 export default function TextareaField(props) {
-  const { name, placeholder } = props;
-  const { value, onChange, onBlur, isError, setValue } = useInput('', true);
+  const { name, placeholder, values, setValues } = props;
+  const { value, isEmpty } = values;
+
+  function CountSymbolsField() {
+    return (
+      <div className='form__count-symbols'>
+        Доступно {`${COUNT_SYMBOLS - value.length}`} символов из
+        {` ${COUNT_SYMBOLS}`}
+      </div>
+    );
+  }
+
+  function OutOfLimit() {
+    return (
+      <div className='form__count-symbols' style={{ color: 'red' }}>
+        Превышено допустимое количество символов!
+      </div>
+    );
+  }
+
+  function onChangeHandler(e) {
+    setValues((prev) => ({
+      ...prev,
+      value: e.target.value,
+    }));
+  }
+
+  function onBlurHandler(e) {
+    setValues({
+      value: value.trim(),
+      isEmpty: !value,
+      isCorrect: value.length <= COUNT_SYMBOLS,
+    });
+  }
+
+  function onFocusHandler() {
+    setValues((prev) => ({
+      ...prev,
+      isEmpty: false,
+      isCorrect: true,
+    }));
+  }
 
   return (
     <div className='form__field'>
-      <label
-        htmlFor='stack'
-        className={isError && !value ? 'warning' : ''}
-      >{`${placeholder}:`}</label>
+      <label htmlFor='stack'>
+        {`${placeholder}:`}
+        {isEmpty && <ErrorBlock message={'Поле не заполнено!'} />}
+        {value.length > COUNT_SYMBOLS && (
+          <ErrorBlock message={'Превышен лимит символов!'} />
+        )}
+      </label>
       <textarea
-        maxLength={COUNT_SYMBOLS}
+        className={isEmpty || value.length > COUNT_SYMBOLS ? 'error' : ''}
         required
         name={name}
         id={name}
         rows='7'
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
-        onBlur={(e) => {
-          setValue(value.trim());
-          onBlur(e);
-        }}
-        className={isError && !value ? 'error' : ''}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
+        onFocus={onFocusHandler}
       ></textarea>
 
-      <div className='form__count-symbols'>
-        Доступно {`${COUNT_SYMBOLS - value.length}`} символов из{' '}
-        {`${COUNT_SYMBOLS}`}
-      </div>
+      {value.length <= COUNT_SYMBOLS ? <CountSymbolsField /> : <OutOfLimit />}
     </div>
   );
 }
