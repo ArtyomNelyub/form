@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import ErrorBlock from './error-block';
 
 export default function InputFieldWebsite(props) {
@@ -7,7 +7,7 @@ export default function InputFieldWebsite(props) {
   const regExWebsite =
     /^(https?:\/\/)?([\w\.]+)\.([a-z]{2,6}\.?)(\/[\w\.]*)*\/?$/;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setValues((prev) => ({
       ...prev,
       value: 'https://',
@@ -35,6 +35,12 @@ export default function InputFieldWebsite(props) {
   }
 
   function onFocusHandler() {
+    if (value === '') {
+      setValues((prev) => ({
+        ...prev,
+        value: 'https://',
+      }));
+    }
     setValues((prev) => ({
       ...prev,
       isEmpty: false,
