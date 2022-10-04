@@ -5,10 +5,9 @@ const regExNumb = /(\d)|(-)/;
 const NUMBER_COUNT = 12;
 
 export default function InputFieldPhone(props) {
-  const [value, setValue] = useState('');
   const [isError, setIsError] = useState(false);
   const [isCorrect, setIsCorrect] = useState(true);
-  const { name, placeholder, type } = props;
+  const { name, placeholder, type, values, setValues } = props;
 
   function numberHandler(str) {
     str = str.split('-').join('');
@@ -38,13 +37,14 @@ export default function InputFieldPhone(props) {
         {isError && <ErrorBlock message={'Поле незаполнено!'} />}
       </label>
       <input
+        className={isError || !isCorrect ? 'error' : ''}
         required
         type={type}
         name={name}
         maxLength={NUMBER_COUNT}
         id={name}
         placeholder={placeholder}
-        value={value}
+        value={values[name]}
         onChange={(e) => {
           if (
             !regExNumb.test(e.target.value[e.target.value.length - 1]) &&
@@ -53,19 +53,24 @@ export default function InputFieldPhone(props) {
             return;
           }
 
-          setValue(numberHandler(e.target.value));
+          setValues((prev) => ({
+            ...prev,
+            [name]: numberHandler(e.target.value),
+          }));
         }}
         onBlur={(e) => {
-          console.log(value);
-          if (value) {
+          if (values[name]) {
             setIsError(false);
           } else setIsError(true);
 
-          if (value.length < NUMBER_COUNT && value !== '') {
+          if (values[name].length < NUMBER_COUNT && values[name] !== '') {
             setIsCorrect(false);
           } else setIsCorrect(true);
         }}
-        className={isError || !isCorrect ? 'error' : ''}
+        onFocus={() => {
+          setIsCorrect(true);
+          setIsError(false);
+        }}
       />
     </div>
   );
