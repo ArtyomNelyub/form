@@ -15,6 +15,20 @@ function Form() {
   const [about, setAbout] = useState({ ...fieldData });
   const [stack, setStack] = useState({ ...fieldData });
   const [lastProject, setLastProject] = useState({ ...fieldData });
+  const allSetters = [
+    setName,
+    setSurName,
+    setPhone,
+    setBirthday,
+    setWebsite,
+    setAbout,
+    setStack,
+    setLastProject,
+  ];
+
+  function clearHandler() {
+    allSetters.forEach((setter) => setter({ ...fieldData }));
+  }
 
   return (
     <form className='form' action='#'>
@@ -41,7 +55,7 @@ function Form() {
         <InputFieldPhone
           name='phone'
           placeholder='x-xxxx-xx-xx'
-          label = 'Телефон'
+          label='Телефон'
           type='tel'
           values={phone}
           setValues={setPhone}
@@ -62,19 +76,31 @@ function Form() {
         values={website}
         setValues={setWebsite}
       />
-      
-      {/* <TextareaField placeholder='О себе' name='about' />
-      <TextareaField placeholder='Стек технологий' name='stack' />
+
+      <TextareaField
+        placeholder='О себе'
+        name='about'
+        values={about}
+        setValues={setAbout}
+      />
+      <TextareaField
+        placeholder='Стек технологий'
+        name='stack'
+        values={stack}
+        setValues={setStack}
+      />
       <TextareaField
         placeholder='Описание последнего проекта'
         name='last-project'
-      /> */}
+        values={lastProject}
+        setValues={setLastProject}
+      />
 
       <div className='form__footer'>
         <button
           type='reset'
           className='button button_clear'
-          onClick={() => console.log(1)}
+          onClick={clearHandler}
         >
           Очистить
         </button>
