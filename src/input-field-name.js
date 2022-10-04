@@ -6,7 +6,7 @@ export default function InputFieldName(props) {
   const { name, placeholder, type, values, setValues } = props;
   const { value, isEmpty } = values;
 
-  function changeHandler(e) {
+  function onChangeHandler(e) {
     let lng = e.target.value.length;
     if (!regExLetters.test(e.target.value[lng - 1])) {
       return;
@@ -17,7 +17,7 @@ export default function InputFieldName(props) {
     }));
   }
 
-  function blurHandler(e) {
+  function onBlurHandler(e) {
     if (value) {
       setValues((prev) => ({
         ...prev,
@@ -31,7 +31,7 @@ export default function InputFieldName(props) {
     }));
   }
 
-  function focusHandler() {
+  function onFocusHandler() {
     setValues((prev) => ({
       ...prev,
       isEmpty: false,
@@ -53,9 +53,9 @@ export default function InputFieldName(props) {
         id={name}
         placeholder={placeholder}
         value={value}
-        onChange={changeHandler}
-        onBlur={blurHandler}
-        onFocus={focusHandler}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
+        onFocus={onFocusHandler}
       />
     </div>
   );
