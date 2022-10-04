@@ -48,6 +48,7 @@ body {
   background-color: rgb(226 255 215);
   border: 3px solid rgb(131 222 60);
   border-radius: 10px;
+  box-shadow: 0 0 15px 1px rgb(168, 233, 119);
 }
 
 .block {
