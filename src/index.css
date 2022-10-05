@@ -236,3 +236,21 @@ label {
 .summary__footer .button:active {
   background-color: rgb(114, 185, 114);
 }
+
+/*======== Not Found ==========*/
+.not-found {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 5px;
+}
+.not-found__header {
+  font-size: 82px;
+  border-bottom: 5px solid #11720c;
+}
+.not-found__footer {
+  font-size: 24px;
+  font-weight: 700;
+  padding: 20px 5px;
+}
