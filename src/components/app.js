@@ -1,17 +1,24 @@
 import { useState } from 'react';
-
+import { Routes, Route } from 'react-router-dom';
+import Main from './main/main';
 import Summary from './summary/summary';
 import Form from './form/form';
 import NotFound from './not-found/not-found';
+import { FormDataProvider } from './hoc/form-data-provider';
 
 export default function App() {
-  const [isSummaryOpen, setIsSummaryOpen] = useState(false);
   const [summaryProps, setSummaryProps] = useState([]);
   return (
-   <NotFound />
-    // <>
-    //   {!isSummaryOpen && <Form summaryOpenHandler={setIsSummaryOpen} summaryValuesHandler={setSummaryProps}/>}
-    //   {isSummaryOpen && <Summary values={summaryProps} summaryOpenHandler={setIsSummaryOpen}/>}
-    // </>
+    <FormDataProvider>
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route
+          path='/create-summary'
+          element={<Form summaryValuesHandler={setSummaryProps} />}
+        />
+        <Route path='/summary' element={<Summary values={summaryProps} />} />
+        <Route path='/*' element={<NotFound />} />
+      </Routes>
+    </FormDataProvider>
   );
 }

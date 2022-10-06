@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import InputFieldBirthday from './input-field-birthday';
 import InputFieldName from './input-field-name';
 import InputFieldPhone from './input-field-phone';
 import InputFieldWebsite from './input-field-website';
 import TextareaField from './textarea-field';
+import { useFormData } from '../hook/useFormData';
 
-function Form(props) {
-  const { summaryOpenHandler, summaryValuesHandler } = props;
+function Form() {
+  const { setFormData } = useFormData();
+  const navigate = useNavigate();
+
   const fieldData = { value: '', isCorrect: true, isEmpty: false };
   const [name, setName] = useState({ ...fieldData });
   const [surName, setSurName] = useState({ ...fieldData });
@@ -16,6 +20,7 @@ function Form(props) {
   const [about, setAbout] = useState({ ...fieldData });
   const [stack, setStack] = useState({ ...fieldData });
   const [lastProject, setLastProject] = useState({ ...fieldData });
+
   const allSetters = [
     setName,
     setSurName,
@@ -51,7 +56,6 @@ function Form(props) {
       isEmptyErrors.includes(true) ||
       isCorrectErrors.includes(false)
     ) {
-      summaryOpenHandler(false);
       for (let i = 0; i < values.length; i++) {
         if (values[i] === '') {
           allSetters[i]((prev) => ({
@@ -61,8 +65,8 @@ function Form(props) {
         }
       }
     } else {
-      summaryValuesHandler(values);
-      summaryOpenHandler(true);
+      setFormData(values);
+      navigate('/summary');
     }
   }
 
@@ -133,14 +137,21 @@ function Form(props) {
       />
 
       <div className='form__footer'>
+      <Link
+          to='/'
+          type='reset'
+          className='button__main'
+        >
+          На главную
+        </Link>
         <button
           type='reset'
-          className='button button_clear'
+          className='form__button form__button_clear'
           onClick={clearHandler}
         >
           Очистить
         </button>
-        <button type='button' className='button' onClick={submitHandler}>
+        <button type='form__button' className='form__button' onClick={submitHandler}>
           Отправить
         </button>
       </div>

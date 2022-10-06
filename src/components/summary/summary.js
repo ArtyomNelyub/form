@@ -1,9 +1,28 @@
-export default function Summary({ values, summaryOpenHandler }) {
-  const [name, surName, phone, birthday, website, about, stack, lastProject] =
-    values;
+import { Link } from 'react-router-dom';
+import { useFormData } from '../hook/useFormData';
 
-  function onClickHandler() {
-    summaryOpenHandler(false);
+export default function Summary() {
+  const { formData } = useFormData();
+  const [name, surName, phone, birthday, website, about, stack, lastProject] =
+    formData;
+
+  if (formData.length === 0) {
+    return (
+      <div className='summary'>
+        <div className='summary__header'>Нет данных для формы</div>
+        <div className='summary__navigation'>
+          <Link to={'/'} className='button__main'>
+            На главную
+          </Link>
+          <Link
+            to={'/create-summary'}
+            className='button__main button__main_green'
+          >
+            Создать анкету
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -33,10 +52,16 @@ export default function Summary({ values, summaryOpenHandler }) {
         <div className='summary__field'>Последний проект:</div>
         <div className='summary__value'>{`${lastProject}`}</div>
       </div>
-      <div className='summary__footer'>
-        <button className='button' onClick={onClickHandler}>
-          Закрыть
-        </button>
+      <div className='summary__navigation'>
+        <Link to={'/'} className='button__main'>
+          На главную
+        </Link>
+        <Link
+          to={'/create-summary'}
+          className='button__main button__main_green'
+        >
+          Создать анкету
+        </Link>
       </div>
     </div>
   );
