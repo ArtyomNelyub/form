@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useFormData } from '../hook/useFormData';
+import { APP_ROUTE } from '../const';
 
 export default function Summary() {
   const { formData } = useFormData();
@@ -11,11 +12,11 @@ export default function Summary() {
       <div className='summary'>
         <div className='summary__header'>Нет данных для формы</div>
         <div className='summary__navigation'>
-          <Link to={'/'} className='button__main'>
+          <Link to={APP_ROUTE.MAIN} className='button__main'>
             На главную
           </Link>
           <Link
-            to={'/create-summary'}
+            to={APP_ROUTE.CREATE_SUMMARY}
             className='button__main button__main_green'
           >
             Создать анкету
@@ -53,11 +54,11 @@ export default function Summary() {
         <div className='summary__value'>{`${lastProject}`}</div>
       </div>
       <div className='summary__navigation'>
-        <Link to={'/'} className='button__main'>
+        <Link to={APP_ROUTE.MAIN} className='button__main'>
           На главную
         </Link>
         <Link
-          to={'/create-summary'}
+          to={APP_ROUTE.CREATE_SUMMARY}
           className='button__main button__main_green'
         >
           Создать анкету

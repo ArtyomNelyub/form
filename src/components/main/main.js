@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { APP_ROUTE } from '../const';
 
 export default function Main() {
   return (
@@ -8,7 +9,7 @@ export default function Main() {
       </h1>
       <p className='main__title'>
         Прими себя таким, какой ты есть и{' '}
-        <Link to='/create-summary' className='main__button'>
+        <Link to={APP_ROUTE.CREATE_SUMMARY} className='main__button'>
           расскажи о себе
         </Link>
       </p>
