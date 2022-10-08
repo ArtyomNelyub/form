@@ -6,6 +6,7 @@ import InputFieldPhone from './input-field-phone';
 import InputFieldWebsite from './input-field-website';
 import TextareaField from './textarea-field';
 import { useFormData } from '../hook/useFormData';
+import { APP_ROUTE } from '../const';
 
 function Form() {
   const { setFormData } = useFormData();
@@ -66,7 +67,7 @@ function Form() {
       }
     } else {
       setFormData(values);
-      navigate('/summary');
+      navigate(APP_ROUTE.SUMMARY);
     }
   }
 
@@ -137,11 +138,7 @@ function Form() {
       />
 
       <div className='form__footer'>
-      <Link
-          to='/'
-          type='reset'
-          className='button__main'
-        >
+        <Link to={APP_ROUTE.MAIN} type='reset' className='button__main'>
           На главную
         </Link>
         <button
@@ -151,7 +148,11 @@ function Form() {
         >
           Очистить
         </button>
-        <button type='form__button' className='form__button' onClick={submitHandler}>
+        <button
+          type='form__button'
+          className='form__button'
+          onClick={submitHandler}
+        >
           Отправить
         </button>
       </div>
